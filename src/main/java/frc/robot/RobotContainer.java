@@ -56,21 +56,16 @@ public class RobotContainer {
 
   private final CommandXboxController DriverJoystick = new CommandXboxController(OperatorConstants.kDriverJoystickPort);
   private final CommandXboxController OperatorJoystick = new CommandXboxController(OperatorConstants.kOperatorJoystickPort);
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+
   public RobotContainer() {    
     NamedCommands.registerCommand("ClimbBack", new ClimbBackCommand(m_climbSubsystem).withTimeout(0.5));
     NamedCommands.registerCommand("ShooterTurn", new ShooterPrepForSPEAKER(m_shooterSubsystem).withTimeout(1));
-
     NamedCommands.registerCommand("NoteIn", new IntakeCommand(m_intakeSubsystem, m_shooterSubsystem).withTimeout(2));
-
     NamedCommands.registerCommand("NoteShoot", new ShooterFeedNote(m_shooterSubsystem).withTimeout(1));
-
     NamedCommands.registerCommand("ClimbUp", new ClimberUp(m_climbSubsystem).withTimeout(0.5));
-
     NamedCommands.registerCommand("IntakeOut", new IntakeCommand(m_intakeSubsystem, m_shooterSubsystem));
-
     NamedCommands.registerCommand("BaseStop", Commands.run(()->{
-      m_swerveSubsystem.drive_auto(new ChassisSpeeds(0, 0, 0));
+      m_swerveSubsystem.stopModules();
     }).withTimeout(0.02));
 
     autoChooser = AutoBuilder.buildAutoChooser();
